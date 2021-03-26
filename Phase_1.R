@@ -21,11 +21,11 @@ df2
 
 
 write_csv(x=df2, file = "outputs/hh_arrived_past_6_months.csv")
-  
 
 
 
-  
+
+
 percent_hhs_arrived_past_6_months<-(hh_arrived_past_6_months/nrow(df))*100
 
 
@@ -34,8 +34,8 @@ percent_hhs_arrived_past_6_months<-(hh_arrived_past_6_months/nrow(df))*100
 
 
 write_csv(x= percent_hhs_arrived_past_6_months, file = "outputs/percent_hh_arrived_past_6_months.csv")  
- 
-  # Food consumption score 
+
+# Food consumption score 
 df2<- df %>%
   mutate(
     fcs_cereals_tuber=food_consumed_cereals_roots_tubers,
@@ -43,7 +43,7 @@ df2<- df %>%
     fcs_oil_fats= food_consumed_fat,
     fcs_sugar= food_consumed_sugar,
     fcs_condiments= food_consumed_condiments,
-  
+    
   ) %>%
   rowwise() %>%
   mutate(
@@ -69,30 +69,30 @@ df3<-df2 %>%
   mutate(
     i.fcs_score= (fcs_cereals_tuber*2)+ (fcs_pulses*3)+(fcs_veg*1)+(fcs_dairy*4)+(fcs_meat_fish*4)+(fcs_fruits*1)+(fcs_oil_fats*.5)+(fcs_sugar*.5)+(fcs_condiments*0)
   )# %>% 
-  #  
-  # select(
-  #   starts_with("i.")
-  # )
+#  
+# select(
+#   starts_with("i.")
+# )
 
 
 fcs_threshold<-df3 %>% 
   mutate(
-   i.fcs_score_acceptable= ifelse(i.fcs_score>35, T, F),
-   i.fcs_score_borderline= ifelse(i.fcs_score<=35& i.fcs_score>=21.5, T, F),
-   i.fcs_score_poor= ifelse(i.fcs_score<21.5, T, F),
-   i.fcs_category= ifelse(i.fcs_score>35, "acceptable", ifelse(i.fcs_score>=21.5, "borderline", "poor"))
+    i.fcs_score_acceptable= ifelse(i.fcs_score>35, T, F),
+    i.fcs_score_borderline= ifelse(i.fcs_score<=35& i.fcs_score>=21.5, T, F),
+    i.fcs_score_poor= ifelse(i.fcs_score<21.5, T, F),
+    i.fcs_category= ifelse(i.fcs_score>35, "acceptable", ifelse(i.fcs_score>=21.5, "borderline", "poor"))
   ) #%>% 
-  
-  # select(
-  #   starts_with("i.")
-  # )
+
+# select(
+#   starts_with("i.")
+# )
 
 fcs_threshold
 
 FCS_score = (cereals_tubers*2 + pulses_nuts_seeds*3 +
                vegetables*1 + fruits*1 +dairy*4 +
                meat_fish*4 + oil_fats*.5 +sweets*.5 +
-               spices_condiments*0),
+               spices_condiments*0)
 
 read_csv(file = "inputs/vena_raw_simplified.csv")
 
@@ -105,12 +105,12 @@ write_csv(x=fcos_components, file = "outputs/food_consumption_score.csv", na =""
 
 df %>%
   group_by(uuid)
-  summarise(
-    mean_food_consumption_score= mean(fcos_components, na.rm = TRUE) %>% round(2)
-  )
- 
-   
-  # hhs with less blankets 
+summarise(
+  mean_food_consumption_score= mean(fcos_components, na.rm = TRUE) %>% round(2)
+)
+
+
+# hhs with less blankets 
 i.hh_less_blankets_than_occupants<-df %>%
   mutate(
     i.hh_less_blankets_than_occupants= ifelse(cri_blanket<hh_size, TRUE, FALSE)
@@ -121,7 +121,7 @@ i.hh_less_blankets_than_occupants<-df %>%
 ?print  
 
 write_csv(x= i.hh_less_blankets_than_occupants, file = "outputs/hh_less_blankets.csv") 
-          
+
 
 
 
