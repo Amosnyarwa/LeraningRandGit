@@ -74,7 +74,7 @@ df3<-df2 %>%
 #   starts_with("i.")
 # )
 
-
+# creating new indicators
 fcs_threshold<-df3 %>% 
   mutate(
     i.fcs_score_acceptable= ifelse(i.fcs_score>35, T, F),
