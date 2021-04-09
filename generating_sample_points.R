@@ -6,7 +6,7 @@ settlement_data <- read_csv(file = "inputs/Total_hhs_03_2019.csv")
 
 # read shapefile
 settlement_shape <- st_read("inputs/Settlements_2019.shp", crs=4326)
-sample_per_settlement <- rep(100, nrow(settlement_shape))
+
 
 settlement_data <- settlement_shape%>% 
   left_join(settlement_data, by = c("Name_setlm"="Settlement")) 
